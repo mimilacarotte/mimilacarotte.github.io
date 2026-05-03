@@ -748,25 +748,6 @@
             }
         };
 
-        // Produits en dur (temporaire jusqu'à trouver une solution)
-        const defaultProducts = [
-            { id: 1, name_fr: "Piece Louis XVI", name_en: "Louis XVI Piece", name_es: "Pieza Luis XVI", name_zh: "路易十六件", name_it: "Pezzo Luigi XVI", name_de: "Ludwig XVI Stück", price: 1.00, image: "PieceLouisXVI.jpeg" },
-            { id: 2, name_fr: "Shuriken blanc", name_en: "White Shuriken", name_es: "Shuriken Blanco", name_zh: "白色手里剑", name_it: "Shuriken Bianco", name_de: "Weißer Shuriken", price: 0.50, image: "ShurikenBlanc.jpeg" },
-            { id: 3, name_fr: "Shuriken à carreaux", name_en: "Checkered Shuriken", name_es: "Shuriken a Cuadros", name_zh: "格纹手里剑", name_it: "Shuriken a Quadri", name_de: "Kariierter Shuriken", price: 0.20, image: "ShurikenCarreaux.jpeg" },
-            { id: 4, name_fr: "Origami avion", name_en: "Paper Airplane", name_es: "Avión de Papel", name_zh: "纸飞机", name_it: "Aeroplano di Carta", name_de: "Papierflieger", price: 0.10, image: "OrigamiAvion.jpeg" },
-            { id: 5, name_fr: "Origami bateau", name_en: "Paper Boat", name_es: "Barco de Papel", name_zh: "纸船", name_it: "Barca di Carta", name_de: "Papierschiff", price: 0.15, image: "OrigamiBateau.jpeg" },
-            { id: 6, name_fr: "Origami cocote", name_en: "Paper Fortune Teller", name_es: "Adivinador de Papel", name_zh: "纸制算命器", name_it: "Cartomante di Carta", name_de: "Papierwahrsager", price: 0.30, image: "OrigamiCocote.jpeg" },
-            { id: 7, name_fr: "Origami enveloppe", name_en: "Paper Envelope", name_es: "Sobre de Papel", name_zh: "纸信封", name_it: "Busta di Carta", name_de: "Papierumschlag", price: 0.50, image: "OrigamiEnveloppe.jpeg" },
-            { id: 8, name_fr: "Origami boite", name_en: "Paper Box", name_es: "Caja de Papel", name_zh: "纸盒", name_it: "Scatola di Carta", name_de: "Papierbox", price: 0.50, image: "OrigamiBoite.jpeg" },
-            { id: 9, name_fr: "Origami poisson", name_en: "Paper Fish", name_es: "Pez de Papel", name_zh: "纸鱼", name_it: "Pesce di Carta", name_de: "Papierfisch", price: 0.50, image: "OrigamiPoisson.jpeg" },
-            { id: 10, name_fr: "Paquet de mouchoirs chien", name_en: "Dog Tissue Box", name_es: "Caja de Pañuelos Perro", name_zh: "狗纸巾盒", name_it: "Scatola di Fazzoletti Cane", name_de: "Hund Taschentuch Box", price: 2.00, image: "MouchoirsChien.jpeg" },
-            { id: 11, name_fr: "Paquet de mouchoirs chat", name_en: "Cat Tissue Box", name_es: "Caja de Pañuelos Gato", name_zh: "猫纸巾盒", name_it: "Scatola di Fazzoletti Gatto", name_de: "Katze Taschentuch Box", price: 2.00, image: "MouchoirsChat.jpeg" },
-            { id: 12, name_fr: "Plastique relax", name_en: "Bubble Wrap", name_es: "Plástico de Burbujas", name_zh: "气泡膜", name_it: "Pluriball", name_de: "Luftpolsterfolie", price: 0.25, image: "./Images/PlastiqueRelax.jpeg" },
-            { id: 13, name_fr: "Graines", name_en: "Seeds", name_es: "Semillas", name_zh: "种子", name_it: "Semi", name_de: "Samen", price: 1.00, image: "Graines.jpeg" },
-            { id: 14, name_fr: "Ballons gonflables", name_en: "Inflatable Balloons", name_es: "Globos Inflables", name_zh: "充气气球", name_it: "Palloncini Gonfiabili", name_de: "Aufblasbare Ballons", price: 1.00, image: "ballon.svg" },
-            { id: 15, name_fr: "Stick brillant", name_en: "Glow Stick", name_es: "Palo Brillante", name_zh: "荧光棒", name_it: "Stick Luminoso", name_de: "Leuchtstab", price: 0.20, image: "stick.svg" },
-            { id: 16, name_fr: "Helicoptere en bambou", name_en: "Bamboo Helicopter", name_es: "Helicoptero de Bambu", name_zh: "竹制直升机", name_it: "Elicottero in Bambu", name_de: "Bambus-Hubschrauber", price: 0.20, image: "https://global.kawasaki.com/en/upload_images/img_aero_A16_02.jpg" }
-        ];
 
         let products = [];
 
@@ -953,7 +934,6 @@
             console.log('Début boucle products, nombre:', products.length);
 
             products.forEach((product) => {
-				console.log('图片路径:', product.image);  // ← 这里!
                 const isOutOfStock = outOfStockProducts[product.id];
                 const outOfStockClass = isOutOfStock ? 'out-of-stock' : '';
                 const name = product[`name_${currentLanguage}`];
