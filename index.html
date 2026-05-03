@@ -953,6 +953,7 @@
             console.log('Début boucle products, nombre:', products.length);
 
             products.forEach((product) => {
+				console.log('图片路径:', product.image);  // ← 这里!
                 const isOutOfStock = outOfStockProducts[product.id];
                 const outOfStockClass = isOutOfStock ? 'out-of-stock' : '';
                 const name = product[`name_${currentLanguage}`];
