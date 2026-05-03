@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mimiprix - Ma Boutique</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comfortaa:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #FFE5B4 0%, #FFDAB9 50%, #FFE4E1 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        /* HOME PAGE */
+        .home-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .home-logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 50%, #FFB3BA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .home-tagline {
+            font-size: 1.5rem;
+            color: #666;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .home-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 100%);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-signup:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.6);
+        }
+
+        .btn-shop {
+            background: white;
+            color: #FF6B9D;
+            border: 3px solid #FF6B9D;
+            padding: 20px 50px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-shop:hover {
+            transform: scale(1.1);
+            background: #FFE5E1;
+        }
+
+        /* SIGNUP MODAL */
+        .signup-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .signup-modal.active {
+            display: flex;
+        }
+
+        .signup-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .signup-modal-content h2 {
+            color: #FF6B9D;
+            margin-bottom: 25px;
+            font-family: 'Fredoka', sans-serif;
+            text-align: center;
+        }
+
+        .signup-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #FF8C94;
+            border-radius: 8px;
+            font-family: 'Comfortaa', cursive;
+            font-size: 1rem;
+        }
+
+        .signup-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .signup-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .signup-submit {
+            background: #FF6B9D;
+            color: white;
+        }
+
+        .signup-cancel {
+            background: #FFE5E1;
+            color: #FF6B9D;
+        }
+
+        /* SHOP PAGE */
+        .shop-page {
+            display: none;
+        }
+
+        .signup-shop-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1rem;
+            z-index: 100;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .signup-shop-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.6);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            margin-top: 100px;
+        }
+
+        .logo {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 50%, #FFB3BA 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .tagline { font-size: 1.2rem; color: #666; font-style: italic; }
+        
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .language-selector {
+            position: fixed;
+            top: 20px;
+            left: 150px;
+            display: flex;
+            gap: 8px;
+            z-index: 99;
+            background: white;
+            padding: 12px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            border: 3px solid #FF8C94;
+            flex-wrap: wrap;
+        }
+
+        .lang-btn {
+            font-size: 0.9rem;
+            font-weight: 700;
+            font-family: 'Fredoka', sans-serif;
+            border: 2px solid transparent;
+            background: #FFF5F7;
+            color: #FF6B9D;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border-radius: 8px;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.1);
+            background: #FFE5E1;
+            border-color: #FF8C94;
+        }
+
+        .lang-btn.active {
+            background: #FF8C94;
+            color: white;
+            border-color: #FF6B9D;
+            transform: scale(1.15);
+        }
+
+        .cart-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 100;
+        }
+
+        .cart-count {
+            background: #FFB3BA;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            font-weight: 700;
+            margin-left: 8px;
+            display: inline-block;
+        }
+
+        .cart-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; align-items: center; justify-content: center; }
+        .cart-modal.active { display: flex; }
+        
+        .cart-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .cart-close { float: right; font-size: 2rem; cursor: pointer; color: #FF6B9D; border: none; background: none; }
+        .cart-title { clear: both; font-family: 'Fredoka', sans-serif; font-size: 1.8rem; color: #FF6B9D; margin-bottom: 20px; margin-top: 10px; }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background: #FFF5F7;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .qty-btn { background: #FF8C94; color: white; border: none; width: 25px; height: 25px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .remove-btn { background: #FFB3BA; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem; }
+        
+        .cart-total { margin-top: 25px; padding-top: 20px; border-top: 2px solid #FFE5E1; text-align: right; }
+        .cart-total-amount { font-family: 'Fredoka', sans-serif; font-size: 1.8rem; color: #FF6B9D; font-weight: 700; margin-bottom: 15px; }
+        
+        .cart-checkout {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        .products-section h2 { text-align: center; font-size: 2.5rem; color: #FF6B9D; margin-bottom: 40px; font-family: 'Fredoka', sans-serif; }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover { transform: translateY(-10px); }
+        
+        .product-card.out-of-stock {
+            opacity: 0.7;
+        }
+
+        .product-card.out-of-stock::after {
+            content: 'RUPTURE DE STOCK';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            z-index: 10;
+            font-family: 'Fredoka', sans-serif;
+        }
+        
+        .product-image { width: 100%; height: 200px; object-fit: cover; border-bottom: 3px solid #FF8C94; }
+        
+        .product-info { padding: 20px; }
+        .product-name { font-family: 'Fredoka', sans-serif; font-size: 1.3rem; color: #FF6B9D; margin-bottom: 8px; }
+        .product-price { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; color: #FF8C94; font-weight: 700; margin-bottom: 15px; }
+        
+        .product-button {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        .product-button:disabled {
+            background: #CCCCCC;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .contact-section {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid #FF8C94;
+            margin-bottom: 30px;
+        }
+
+        .contact-section h2 { color: #FF6B9D; margin-bottom: 20px; font-size: 1.8rem; }
+        .contact-info { font-size: 1.1rem; color: #555; margin-bottom: 10px; }
+
+        footer { text-align: center; padding: 30px; color: #666; }
+
+        .comments-section { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 3px solid #FF8C94; margin: 50px 0; }
+        .comments-section h2 { color: #FF6B9D; margin-bottom: 20px; font-size: 1.8rem; font-family: 'Fredoka', sans-serif; }
+        .comment-form { background: #FFF5F7; padding: 20px; border-radius: 15px; margin-bottom: 30px; border: 2px solid #FF8C94; }
+        .comment-textarea { width: 100%; padding: 15px; border: 2px solid #FF8C94; border-radius: 10px; font-family: 'Comfortaa', cursive; font-size: 1rem; min-height: 100px; margin-bottom: 15px; resize: vertical; }
+        .stars-rating { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; }
+        .star { font-size: 2rem; cursor: pointer; filter: grayscale(100%); transition: all 0.2s ease; }
+        .star:hover, .star.active { filter: grayscale(0%); transform: scale(1.2); }
+        .comment-btn { background: linear-gradient(135deg, #FF6B9D 0%, #FF8C94 100%); color: white; border: none; padding: 12px 30px; border-radius: 25px; font-family: 'Fredoka', sans-serif; font-weight: 600; cursor: pointer; width: 100%; font-size: 1rem; }
+        .comments-list { max-height: 400px; overflow-y: auto; }
+        .comment-item { background: #FFF5F7; padding: 15px; margin-bottom: 15px; border-radius: 10px; border-left: 4px solid #FF8C94; }
+        .comment-stars { color: #FFD700; font-size: 1.2rem; margin-bottom: 8px; }
+        .comment-text { color: #555; margin-bottom: 10px; font-size: 1rem; line-height: 1.5; }
+        .comment-date { color: #999; font-size: 0.85rem; }
+
+        .error-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 300;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .error-modal.active {
+            display: flex;
+        }
+
+        .error-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .error-modal-content h2 {
+            color: #F44336;
+            margin-bottom: 20px;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .error-modal-content p {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .error-modal-content button {
+            background: #FF6B9D;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- HOME PAGE -->
+    <div class="home-page" id="homePage">
+        <!-- LANGUAGE SELECTOR (on home page too) -->
+        <div class="language-selector" id="homeLanguageSelector" style="position: fixed; top: 20px; left: 20px;">
+            <button class="lang-btn active" data-lang="fr"><img src="https://flagcdn.com/w40/fr.png" alt="France" style="height: 20px; margin-right: 5px;"> Français</button>
+            <button class="lang-btn" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="UK" style="height: 20px; margin-right: 5px;"> English</button>
+            <button class="lang-btn" data-lang="es"><img src="https://flagcdn.com/w40/es.png" alt="Spain" style="height: 20px; margin-right: 5px;"> Español</button>
+            <button class="lang-btn" data-lang="zh"><img src="https://flagcdn.com/w40/cn.png" alt="China" style="height: 20px; margin-right: 5px;"> 中文</button>
+            <button class="lang-btn" data-lang="it"><img src="https://flagcdn.com/w40/it.png" alt="Italy" style="height: 20px; margin-right: 5px;"> Italiano</button>
+            <button class="lang-btn" data-lang="de"><img src="https://flagcdn.com/w40/de.png" alt="Germany" style="height: 20px; margin-right: 5px;"> Deutsch</button>
+        </div>
+
+        <div class="home-logo">Mimiprix</div>
+        <div class="home-tagline" id="homeTagline">🎨 Fait à la main avec ❤️ par Mimi 🎨</div>
+        <div class="home-buttons">
+            <button class="btn-signup" id="homeSignUpBtn" onclick="showSignupModal()">Sign Up ✍️</button>
+            <button class="btn-shop" id="homeShopBtn" onclick="goToShop()">Voir la Boutique 🛒</button>
+        </div>
+    </div>
+
+    <!-- SIGNUP MODAL -->
+    <div class="signup-modal" id="signupModal">
+        <div class="signup-modal-content">
+            <h2 id="signUpTitle">📝 S'inscrire</h2>
+            <input type="email" id="signupEmail" class="signup-input" placeholder="Ton Email" required>
+            <input type="text" id="signupName" class="signup-input" placeholder="Ton Nom" required>
+            <input type="text" id="signupFirstName" class="signup-input" placeholder="Ton Prénom" required>
+            <input type="text" id="signupClass" class="signup-input" placeholder="Ta Classe (ex: CM2 B)" required>
+            <div class="signup-buttons">
+                <button class="signup-submit" id="signUpSubmitBtn" onclick="registerSignup()">S'inscrire ✓</button>
+                <button class="signup-cancel" id="signUpCancelBtn" onclick="closeSignupModal()">Annuler ✗</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ERROR MODAL -->
+    <div class="error-modal" id="errorModal">
+        <div class="error-modal-content">
+            <h2 id="errorTitle">⚠️ Erreur</h2>
+            <p id="errorMessage">Une erreur est survenue</p>
+            <button onclick="closeErrorModal()">Fermer</button>
+        </div>
+    </div>
+
+    <!-- SHOP PAGE -->
+    <div class="shop-page" id="shopPage">
+        <!-- SIGNUP BUTTON (visible in shop) -->
+        <button class="signup-shop-btn" id="signupShopBtn" onclick="showSignupModal()">Sign Up ✍️</button>
+
+        <!-- LANGUAGE SELECTOR -->
+        <div class="language-selector" id="languageSelector">
+            <button class="lang-btn active" data-lang="fr"><img src="https://flagcdn.com/w40/fr.png" alt="France" style="height: 20px; margin-right: 5px;"> Français</button>
+            <button class="lang-btn" data-lang="en"><img src="https://flagcdn.com/w40/gb.png" alt="UK" style="height: 20px; margin-right: 5px;"> English</button>
+            <button class="lang-btn" data-lang="es"><img src="https://flagcdn.com/w40/es.png" alt="Spain" style="height: 20px; margin-right: 5px;"> Español</button>
+            <button class="lang-btn" data-lang="zh"><img src="https://flagcdn.com/w40/cn.png" alt="China" style="height: 20px; margin-right: 5px;"> 中文</button>
+            <button class="lang-btn" data-lang="it"><img src="https://flagcdn.com/w40/it.png" alt="Italy" style="height: 20px; margin-right: 5px;"> Italiano</button>
+            <button class="lang-btn" data-lang="de"><img src="https://flagcdn.com/w40/de.png" alt="Germany" style="height: 20px; margin-right: 5px;"> Deutsch</button>
+        </div>
+
+        <button class="cart-button" id="cartBtn">🛒 Panier <span class="cart-count" id="cartCount">0</span></button>
+
+        <div class="cart-modal" id="cartModal">
+            <div class="cart-content">
+                <button class="cart-close" id="cartClose">&times;</button>
+                <h2 class="cart-title">🛒 Mon Panier</h2>
+                <div id="cartItems"></div>
+                <div class="cart-total" id="cartTotal" style="display:none;">
+                    <div style="font-family: 'Fredoka', sans-serif; font-size: 1.2rem; color: #555; margin-bottom: 10px;">Total:</div>
+                    <div class="cart-total-amount" id="totalPrice">0.00 €</div>
+                    <button class="cart-checkout" id="checkoutBtn">Passer la Commande 💳</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <header>
+                <div class="stars">✨ 🌟 ✨</div>
+                <div class="logo">Mimiprix</div>
+                <p class="tagline" id="tagline">Fait à la main avec ❤️ par Mimi</p>
+            </header>
+
+            <section class="products-section">
+                <h2 id="productsTitle">🛍️ Mes Produits</h2>
+                <div class="products-grid" id="productsGrid"></div>
+            </section>
+
+            <section class="contact-section">
+                <h2 id="contactTitle">📞 Questions?</h2>
+                <div class="contact-info" id="contact1">💬 Demande-moi à l'école!</div>
+                <div class="contact-info" id="contact2">👨‍👩‍👧 Ou dis à tes parents de parler avec mes parents!</div>
+                <div style="font-size: 1.5rem; margin: 15px 0;">💕 💕 💕</div>
+            </section>
+
+            <section class="comments-section">
+                <h2>💬 Commentaires & Avis</h2>
+                <div class="comment-form">
+                    <input type="email" id="commentEmail" class="comment-textarea" style="height: auto; padding: 10px; margin-bottom: 10px;" placeholder="Ton Email 📧">
+                    <textarea id="commentText" class="comment-textarea" placeholder="Dis-moi ce que tu penses de Mimiprix!"></textarea>
+                    <div style="text-align: center; margin-bottom: 15px;">
+                        <p style="color: #FF6B9D; font-weight: 700; margin-bottom: 10px;">Évalue Mimiprix: ⭐</p>
+                        <div class="stars-rating" id="starsRating">
+                            <span class="star" data-rating="1">⭐</span>
+                            <span class="star" data-rating="2">⭐</span>
+                            <span class="star" data-rating="3">⭐</span>
+                            <span class="star" data-rating="4">⭐</span>
+                            <span class="star" data-rating="5">⭐</span>
+                        </div>
+                    </div>
+                    <button class="comment-btn" onclick="submitComment()">Envoyer le commentaire ✓</button>
+                </div>
+                <div class="comments-list" id="commentsList"></div>
+            </section>
+
+            <footer id="footer">
+                <p>© 2026 Mimiprix - Tous les articles faits à la main par Mimi avec amour ❤️</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        const translations = {
+            fr: {
+                tagline: "Fait à la main avec ❤️ par Mimi",
+                homeTagline: "🎨 Fait à la main avec ❤️ par Mimi 🎨",
+                signUp: "Sign Up ✍️",
+                shopButton: "Voir la Boutique 🛒",
+                signUpTitle: "📝 S'inscrire",
+                signUpEmail: "Ton Email",
+                signUpName: "Ton Nom",
+                signUpFirstName: "Ton Prénom",
+                signUpClass: "Ta Classe (ex: CM2 B)",
+                signUpSubmit: "S'inscrire ✓",
+                signUpCancel: "Annuler ✗",
+                productsTitle: "🛍️ Mes Produits",
+                addToCart: "Ajouter au panier 💝",
+                cartTitle: "🛒 Mon Panier",
+                cartEmpty: "🛒 Ton panier est vide!",
+                total: "Total:",
+                checkout: "Passer la Commande 💳",
+                contactTitle: "📞 Questions?",
+                contact1: "💬 Demande-moi à l'école!",
+                contact2: "👨‍👩‍👧 Ou dis à tes parents de parler avec mes parents!",
+                footer: "© 2026 Mimiprix - Tous les articles faits à la main par Mimi avec amour ❤️",
+                panier: "🛒 Panier"
+            },
+            en: {
+                tagline: "Handmade with ❤️ by Mimi",
+                homeTagline: "🎨 Handmade with ❤️ by Mimi 🎨",
+                signUp: "Sign Up ✍️",
+                shopButton: "Shop 🛒",
+                signUpTitle: "📝 Sign Up",
+                signUpEmail: "Your Email",
+                signUpName: "Your Name",
+                signUpFirstName: "Your First Name",
+                signUpClass: "Your Class (ex: CM2 B)",
+                signUpSubmit: "Sign Up ✓",
+                signUpCancel: "Cancel ✗",
+                productsTitle: "🛍️ My Products",
+                addToCart: "Add to Cart 💝",
+                cartTitle: "🛒 My Cart",
+                cartEmpty: "🛒 Your cart is empty!",
+                total: "Total:",
+                checkout: "Checkout 💳",
+                contactTitle: "📞 Questions?",
+                contact1: "💬 Ask me at school!",
+                contact2: "👨‍👩‍👧 Or tell your parents to talk to mine!",
+                footer: "© 2026 Mimiprix - All items handmade by Mimi with love ❤️",
+                panier: "🛒 Cart"
+            },
+            es: {
+                tagline: "Hecho a mano con ❤️ por Mimi",
+                homeTagline: "🎨 Hecho a mano con ❤️ por Mimi 🎨",
+                signUp: "Sign Up ✍️",
+                shopButton: "Tienda 🛒",
+                signUpTitle: "📝 Registrarse",
+                signUpEmail: "Tu Email",
+                signUpName: "Tu Nombre",
+                signUpFirstName: "Tu Prénom",
+                signUpClass: "Tu Clase (ex: CM2 B)",
+                signUpSubmit: "Registrarse ✓",
+                signUpCancel: "Cancelar ✗",
+                productsTitle: "🛍️ Mis Productos",
+                addToCart: "Añadir al Carrito 💝",
+                cartTitle: "🛒 Mi Carrito",
+                cartEmpty: "🛒 ¡Tu carrito está vacío!",
+                total: "Total:",
+                checkout: "Pagar 💳",
+                contactTitle: "📞 ¿Preguntas?",
+                contact1: "💬 ¡Pregúntame en la escuela!",
+                contact2: "👨‍👩‍👧 ¡O dile a tus padres que pregunten a los míos!",
+                footer: "© 2026 Mimiprix - Todos los artículos hechos a mano por Mimi con amor ❤️",
+                panier: "🛒 Carrito"
+            },
+            zh: {
+                tagline: "由Mimi手工制作 ❤️",
+                homeTagline: "🎨 由Mimi手工制作 ❤️ 🎨",
+                signUp: "Sign Up ✍️",
+                shopButton: "商店 🛒",
+                signUpTitle: "📝 注册",
+                signUpEmail: "你的邮箱",
+                signUpName: "你的名字",
+                signUpFirstName: "你的名字",
+                signUpClass: "你的班级 (例如: CM2 B)",
+                signUpSubmit: "注册 ✓",
+                signUpCancel: "取消 ✗",
+                productsTitle: "🛍️ 我的产品",
+                addToCart: "加入购物车 💝",
+                cartTitle: "🛒 我的购物车",
+                cartEmpty: "🛒 你的购物车是空的!",
+                total: "总计:",
+                checkout: "结账 💳",
+                contactTitle: "📞 有问题吗?",
+                contact1: "💬 在学校里问我!",
+                contact2: "👨‍👩‍👧 或者告诉你的父母问我的父母!",
+                footer: "© 2026 Mimiprix - 所有物品由Mimi手工制作，用爱制作 ❤️",
+                panier: "🛒 购物车"
+            },
+            it: {
+                tagline: "Fatto a mano con ❤️ da Mimi",
+                homeTagline: "🎨 Fatto a mano con ❤️ da Mimi 🎨",
+                signUp: "Sign Up ✍️",
+                shopButton: "Negozio 🛒",
+                signUpTitle: "📝 Registrati",
+                signUpEmail: "La Tua Email",
+                signUpName: "Il Tuo Nome",
+                signUpFirstName: "Il Tuo Primo Nome",
+                signUpClass: "La Tua Classe (es: CM2 B)",
+                signUpSubmit: "Registrati ✓",
+                signUpCancel: "Annulla ✗",
+                productsTitle: "🛍️ I Miei Prodotti",
+                addToCart: "Aggiungi al Carrello 💝",
+                cartTitle: "🛒 Il Mio Carrello",
+                cartEmpty: "🛒 Il tuo carrello è vuoto!",
+                total: "Totale:",
+                checkout: "Paga 💳",
+                contactTitle: "📞 Hai Domande?",
+                contact1: "💬 Chiedimi a scuola!",
+                contact2: "👨‍👩‍👧 O dì ai tuoi genitori di chiedere ai miei!",
+                footer: "© 2026 Mimiprix - Tutti gli articoli fatti a mano da Mimi con amore ❤️",
+                panier: "🛒 Carrello"
+            },
+            de: {
+                tagline: "Handgemacht mit ❤️ von Mimi",
+                homeTagline: "🎨 Handgemacht mit ❤️ von Mimi 🎨",
+                signUp: "Sign Up ✍️",
+                shopButton: "Shop 🛒",
+                signUpTitle: "📝 Registrieren",
+                signUpEmail: "Deine E-Mail",
+                signUpName: "Dein Name",
+                signUpFirstName: "Dein Vorname",
+                signUpClass: "Deine Klasse (z.B: CM2 B)",
+                signUpSubmit: "Registrieren ✓",
+                signUpCancel: "Abbrechen ✗",
+                productsTitle: "🛍️ Meine Produkte",
+                addToCart: "Zum Warenkorb Hinzufügen 💝",
+                cartTitle: "🛒 Mein Einkaufswagen",
+                cartEmpty: "🛒 Dein Einkaufswagen ist leer!",
+                total: "Gesamt:",
+                checkout: "Kasse 💳",
+                contactTitle: "📞 Fragen?",
+                contact1: "💬 Frag mich in der Schule!",
+                contact2: "👨‍👩‍👧 Oder sag deinen Eltern, dass sie meine Eltern fragen sollen!",
+                footer: "© 2026 Mimiprix - Alle Artikel handgefertigt von Mimi mit Liebe ❤️",
+                panier: "🛒 Einkaufswagen"
+            }
+        };
+
+        // Produits en dur (temporaire jusqu'à trouver une solution)
+        const defaultProducts = [
+            { id: 1, name_fr: "Piece Louis XVI", name_en: "Louis XVI Piece", name_es: "Pieza Luis XVI", name_zh: "路易十六件", name_it: "Pezzo Luigi XVI", name_de: "Ludwig XVI Stück", price: 1.00, image: "PieceLouisXVI.jpeg" },
+            { id: 2, name_fr: "Shuriken blanc", name_en: "White Shuriken", name_es: "Shuriken Blanco", name_zh: "白色手里剑", name_it: "Shuriken Bianco", name_de: "Weißer Shuriken", price: 0.50, image: "ShurikenBlanc.jpeg" },
+            { id: 3, name_fr: "Shuriken à carreaux", name_en: "Checkered Shuriken", name_es: "Shuriken a Cuadros", name_zh: "格纹手里剑", name_it: "Shuriken a Quadri", name_de: "Kariierter Shuriken", price: 0.20, image: "ShurikenCarreaux.jpeg" },
+            { id: 4, name_fr: "Origami avion", name_en: "Paper Airplane", name_es: "Avión de Papel", name_zh: "纸飞机", name_it: "Aeroplano di Carta", name_de: "Papierflieger", price: 0.10, image: "OrigamiAvion.jpeg" },
+            { id: 5, name_fr: "Origami bateau", name_en: "Paper Boat", name_es: "Barco de Papel", name_zh: "纸船", name_it: "Barca di Carta", name_de: "Papierschiff", price: 0.15, image: "OrigamiBateau.jpeg" },
+            { id: 6, name_fr: "Origami cocote", name_en: "Paper Fortune Teller", name_es: "Adivinador de Papel", name_zh: "纸制算命器", name_it: "Cartomante di Carta", name_de: "Papierwahrsager", price: 0.30, image: "OrigamiCocote.jpeg" },
+            { id: 7, name_fr: "Origami enveloppe", name_en: "Paper Envelope", name_es: "Sobre de Papel", name_zh: "纸信封", name_it: "Busta di Carta", name_de: "Papierumschlag", price: 0.50, image: "OrigamiEnveloppe.jpeg" },
+            { id: 8, name_fr: "Origami boite", name_en: "Paper Box", name_es: "Caja de Papel", name_zh: "纸盒", name_it: "Scatola di Carta", name_de: "Papierbox", price: 0.50, image: "OrigamiBoite.jpeg" },
+            { id: 9, name_fr: "Origami poisson", name_en: "Paper Fish", name_es: "Pez de Papel", name_zh: "纸鱼", name_it: "Pesce di Carta", name_de: "Papierfisch", price: 0.50, image: "OrigamiPoisson.jpeg" },
+            { id: 10, name_fr: "Paquet de mouchoirs chien", name_en: "Dog Tissue Box", name_es: "Caja de Pañuelos Perro", name_zh: "狗纸巾盒", name_it: "Scatola di Fazzoletti Cane", name_de: "Hund Taschentuch Box", price: 2.00, image: "MouchoirsChien.jpeg" },
+            { id: 11, name_fr: "Paquet de mouchoirs chat", name_en: "Cat Tissue Box", name_es: "Caja de Pañuelos Gato", name_zh: "猫纸巾盒", name_it: "Scatola di Fazzoletti Gatto", name_de: "Katze Taschentuch Box", price: 2.00, image: "MouchoirsChat.jpeg" },
+            { id: 12, name_fr: "Plastique relax", name_en: "Bubble Wrap", name_es: "Plástico de Burbujas", name_zh: "气泡膜", name_it: "Pluriball", name_de: "Luftpolsterfolie", price: 0.25, image: "PlastiqueRelax.jpeg" },
+            { id: 13, name_fr: "Graines", name_en: "Seeds", name_es: "Semillas", name_zh: "种子", name_it: "Semi", name_de: "Samen", price: 1.00, image: "Graines.jpeg" },
+            { id: 14, name_fr: "Ballons gonflables", name_en: "Inflatable Balloons", name_es: "Globos Inflables", name_zh: "充气气球", name_it: "Palloncini Gonfiabili", name_de: "Aufblasbare Ballons", price: 1.00, image: "ballon.svg" },
+            { id: 15, name_fr: "Stick brillant", name_en: "Glow Stick", name_es: "Palo Brillante", name_zh: "荧光棒", name_it: "Stick Luminoso", name_de: "Leuchtstab", price: 0.20, image: "stick.svg" },
+            { id: 16, name_fr: "Helicoptere en bambou", name_en: "Bamboo Helicopter", name_es: "Helicoptero de Bambu", name_zh: "竹制直升机", name_it: "Elicottero in Bambu", name_de: "Bambus-Hubschrauber", price: 0.20, image: "heli.jpeg" }
+        ];
+
+        let products = [];
+
+        console.log('✓ Produits chargés au démarrage: 0 (en attente du sheet)');
+
+        let cart = [];
+        let currentLanguage = 'fr';
+        let outOfStockProducts = {};
+        let registeredUsers = JSON.parse(localStorage.getItem('mimiprixUsers')) || {};
+        let blockedUsers = JSON.parse(localStorage.getItem('mimiprixBlocked')) || [];
+
+        // CHARGER LES PRODUITS DEPUIS GOOGLE SHEETS
+        function loadProductsFromSheet() {
+            fetch('https://script.google.com/macros/s/AKfycby2Q2C6hpE0RjF8lLVoT7YfDMO36_vnhw0PX_H_e1cvx8xU0TaHpXZ_OdYOVC5FtplAjw/exec')
+                .then(response => response.json())
+                .then(data => {
+                    products = data;
+                    console.log('✓ Produits chargés du sheet:', products.length);
+                    renderProducts();
+                })
+                .catch(err => {
+                    console.log('Erreur chargement sheet:', err);
+                    products = defaultProducts;
+                    renderProducts();
+                });
+        }
+
+        // Charger au démarrage
+        loadProductsFromSheet();
+
+        function showSignupModal() {
+            document.getElementById('signupModal').classList.add('active');
+        }
+
+        function closeSignupModal() {
+            document.getElementById('signupModal').classList.remove('active');
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupName').value = '';
+            document.getElementById('signupFirstName').value = '';
+            document.getElementById('signupClass').value = '';
+        }
+
+        function registerSignup() {
+            const email = document.getElementById('signupEmail').value.trim();
+            const name = document.getElementById('signupName').value.trim();
+            const firstName = document.getElementById('signupFirstName').value.trim();
+            const className = document.getElementById('signupClass').value.trim();
+
+            if (!email || !email.includes('@') || !name || !firstName || !className) {
+                alert('Remplis tous les champs!');
+                return;
+            }
+
+            const fullName = name + ' ' + firstName;
+            const user = { email, name, firstName, className, approved: false, id: Date.now() };
+            registeredUsers[fullName] = user;
+            localStorage.setItem('mimiprixUsers', JSON.stringify(registeredUsers));
+
+            // SAUVEGARDER DANS GOOGLE SHEETS
+            const clientData = {
+                email: email,
+                firstName: firstName,
+                lastName: name,
+                className: className,
+                approved: false
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbzc3MEvg96aINCTi3NXeupAu4wODEa6DTNwT5krsincWra3E0IJxKHzoCdUrYQ85ZY2Sg/exec', {
+                method: 'POST',
+                body: JSON.stringify(clientData)
+            }).catch(err => console.log('Sauvegardé localement'));
+
+            // Envoyer un email à Mimi
+            const message = `🆕 NOUVELLE DEMANDE D'INSCRIPTION MIMIPRIX!\n\nNom: ${name}\nPrénom: ${firstName}\nEmail: ${email}\nClasse: ${className}\n\nValide ou rejette cette demande dans ton panneau Admin!`;
+
+            fetch('https://formspree.io/f/xdazzpdd', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: message,
+                    email: 'mimilacarotte0@gmail.com',
+                    _subject: '🆕 Nouvelle demande Sign Up - ' + fullName
+                })
+            });
+
+            alert(`✓ Ton inscription a été envoyée!\n\nMimi va valider ton compte! ⏳\n\nUne fois validé, tu pourras faire tes achats! 🛒`);
+            closeSignupModal();
+        }
+
+        function goToShop() {
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('shopPage').style.display = 'block';
+            renderProducts();
+            setupLanguageButtons();
+            setupCart();
+        }
+
+        // Initialiser au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            setupLanguageButtons();
+        });
+
+        function setupLanguageButtons() {
+            // D'abord, réinitialiser tous les écouteurs
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.removeEventListener('click', null);
+                
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    currentLanguage = this.dataset.lang;
+                    
+                    // Mettre à jour les boutons actifs
+                    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Mettre à jour TOUT le site
+                    updateAllLanguage();
+                });
+            });
+        }
+
+        function updateAllLanguage() {
+            const t = translations[currentLanguage];
+            
+            // Mettre à jour la page d'accueil
+            document.getElementById('homeTagline').textContent = t.homeTagline;
+            document.getElementById('homeSignUpBtn').textContent = t.signUp;
+            document.getElementById('homeShopBtn').textContent = t.shopButton;
+            
+            // Mettre à jour le modal signup
+            document.getElementById('signUpTitle').textContent = t.signUpTitle;
+            document.getElementById('signupEmail').placeholder = t.signUpEmail;
+            document.getElementById('signupName').placeholder = t.signUpName;
+            document.getElementById('signupFirstName').placeholder = t.signUpFirstName;
+            document.getElementById('signupClass').placeholder = t.signUpClass;
+            document.getElementById('signUpSubmitBtn').textContent = t.signUpSubmit;
+            document.getElementById('signUpCancelBtn').textContent = t.signUpCancel;
+            
+            // Mettre à jour les titres et textes de la boutique (si visible)
+            const taglineEl = document.getElementById('tagline');
+            if (taglineEl) taglineEl.textContent = t.tagline;
+            
+            const productsTitleEl = document.getElementById('productsTitle');
+            if (productsTitleEl) productsTitleEl.textContent = t.productsTitle;
+            
+            const cartTitleEl = document.getElementById('cartTitle');
+            if (cartTitleEl) cartTitleEl.textContent = t.cartTitle;
+            
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (checkoutBtn) checkoutBtn.textContent = t.checkout;
+            
+            const contactTitleEl = document.getElementById('contactTitle');
+            if (contactTitleEl) contactTitleEl.textContent = t.contactTitle;
+            
+            const contact1El = document.getElementById('contact1');
+            if (contact1El) contact1El.textContent = t.contact1;
+            
+            const contact2El = document.getElementById('contact2');
+            if (contact2El) contact2El.textContent = t.contact2;
+            
+            const footerEl = document.getElementById('footer');
+            if (footerEl) footerEl.innerHTML = `<p>${t.footer}</p>`;
+            
+            const cartBtn = document.getElementById('cartBtn');
+            if (cartBtn) cartBtn.innerHTML = `${t.panier} <span class="cart-count" id="cartCount">0</span>`;
+            
+            // Re-rendre les produits
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productsGrid');
+            console.log('Grid trouvé?', grid);
+            console.log('Grid innerHTML avant:', grid ? grid.innerHTML : 'GRID EST NULL!');
+            
+            if (!grid) {
+                console.error('❌ productsGrid NOT FOUND!');
+                return;
+            }
+            
+            grid.innerHTML = '';
+            const t = translations[currentLanguage];
+            
+            console.log('Début boucle products, nombre:', products.length);
+
+            products.forEach((product) => {
+                const isOutOfStock = outOfStockProducts[product.id];
+                const outOfStockClass = isOutOfStock ? 'out-of-stock' : '';
+                const name = product[`name_${currentLanguage}`];
+
+                const card = document.createElement('div');
+                card.className = `product-card ${outOfStockClass}`;
+                card.innerHTML = `
+                    <img src="images/${product.image}" alt="${name}" class="product-image">
+                    <div class="product-info">
+                        <div class="product-name">${name}</div>
+                        <div class="product-price">${product.price.toFixed(2)} €</div>
+                        <button class="product-button add-to-cart" data-id="${product.id}" data-name="${name}" data-price="${product.price}" ${isOutOfStock ? 'disabled' : ''}>
+                            ${t.addToCart}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+        }
+
+        function setupCart() {
+            document.getElementById('cartBtn').addEventListener('click', () => {
+                document.getElementById('cartModal').classList.add('active');
+                updateCartDisplay();
+            });
+
+            document.getElementById('cartClose').addEventListener('click', () => {
+                document.getElementById('cartModal').classList.remove('active');
+            });
+
+            document.getElementById('checkoutBtn').addEventListener('click', checkout);
+        }
+
+        function addToCart(e) {
+            const id = e.target.dataset.id;
+            const name = e.target.dataset.name;
+            const price = e.target.dataset.price;
+
+            const existing = cart.find(i => i.id === id);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ id, name, price: parseFloat(price), quantity: 1 });
+            }
+
+            updateCartCount();
+            alert('✅ Ajouté au panier!');
+        }
+
+        function updateCartCount() {
+            const total = cart.reduce((s, i) => s + i.quantity, 0);
+            document.getElementById('cartCount').textContent = total;
+        }
+
+        function updateCartDisplay() {
+            const items = document.getElementById('cartItems');
+            const total = document.getElementById('cartTotal');
+
+            if (cart.length === 0) {
+                items.innerHTML = '<div style="text-align:center; padding:30px; color:#999;">🛒 Ton panier est vide!</div>';
+                total.style.display = 'none';
+                return;
+            }
+
+            let html = '';
+            let sum = 0;
+
+            cart.forEach((item, idx) => {
+                const itemTotal = item.price * item.quantity;
+                sum += itemTotal;
+                html += `
+                    <div class="cart-item">
+                        <div>
+                            <div class="product-name">${item.name}</div>
+                            <div style="color:#FF8C94; font-weight:600;">${item.price.toFixed(2)} € x ${item.quantity}</div>
+                        </div>
+                        <div>
+                            <button class="qty-btn" onclick="increaseQty(${idx})">+</button>
+                            <button class="qty-btn" onclick="decreaseQty(${idx})">-</button>
+                            <button class="remove-btn" onclick="removeItem(${idx})">X</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            items.innerHTML = html;
+            document.getElementById('totalPrice').textContent = sum.toFixed(2) + ' €';
+            total.style.display = 'block';
+        }
+
+        window.increaseQty = function(idx) {
+            cart[idx].quantity += 1;
+            updateCartCount();
+            updateCartDisplay();
+        };
+
+        window.decreaseQty = function(idx) {
+            if (cart[idx].quantity > 1) {
+                cart[idx].quantity -= 1;
+            } else {
+                removeItem(idx);
+            }
+            updateCartCount();
+            updateCartDisplay();
+        };
+
+        window.removeItem = function(idx) {
+            cart.splice(idx, 1);
+            updateCartCount();
+            updateCartDisplay();
+        };
+
+        function checkout() {
+            if (cart.length === 0) return;
+
+            // Modal pour demander les infos
+            const email = prompt('Ton Email:');
+            if (!email || !email.includes('@')) {
+                showError('⚠️ Email invalide!', 'Entre une adresse email valide!');
+                return;
+            }
+
+            const name = prompt('Ton Nom:');
+            if (!name) return;
+
+            const firstName = prompt('Ton Prénom:');
+            if (!firstName) return;
+
+            const className = prompt('Ta Classe (ex: CM2 B):');
+            if (!className) return;
+
+            // VÉRIFIER DANS GOOGLE SHEETS (pas dans localStorage!)
+            const fullName = name + ' ' + firstName;
+            
+            // Chercher dans Google Sheets
+            fetch('https://script.google.com/macros/s/AKfycbzc3MEvg96aINCTi3NXeupAu4wODEa6DTNwT5krsincWra3E0IJxKHzoCdUrYQ85ZY2Sg/exec')
+                .then(response => response.json())
+                .then(clients => {
+	
+                    // Trouver le client dans les données Google Sheets
+                    const clientFromSheet = clients.find(c => 
+                        c.email === email || 
+                        (c.firstName === firstName && c.lastName === name)
+                    );
+  	 	    alert(`📋 DEBUG:\n\n所有Clients数量: ${clients.length}\n\n当前Client:\n${JSON.stringify(clientFromSheet, null, 2)}`);
+                    if (!clientFromSheet) {
+                        showError('❌ Compte Non Trouvé', `Désolé, tu n'as pas de compte Mimiprix. Tu dois Sign Up et attendre que Mimi valide ton compte pour acheter chez Mimiprix. 😢`);
+                        return;
+                    }
+
+                    if (clientFromSheet.approved === "Non") {
+                        showError('⏳ En Attente', `Désolé, ton compte est en attente de validation. Mimi doit d'abord valider ton compte avant que tu puisses acheter! ⏳`);
+                        return;
+                    }
+
+                    // OK, faire la commande!
+                    const total = cart.reduce((s, i) => s + (i.price * i.quantity), 0);
+
+                    let message = `🛒 NOUVELLE COMMANDE MIMIPRIX!\n\nCLIENT:\nNom: ${name}\nPrénom: ${firstName}\nEmail: ${email}\nClasse: ${className}\n\nARTICLES:\n`;
+                    cart.forEach(item => {
+                        message += `  • ${item.name} x${item.quantity} = ${(item.price * item.quantity).toFixed(2)} €\n`;
+                    });
+                    message += `\n💰 TOTAL: ${total.toFixed(2)} €`;
+
+                    fetch('https://formspree.io/f/xdazzpdd', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: message,
+                            email: 'mimilacarotte0@gmail.com',
+                            _subject: '🛒 Nouvelle Commande - ' + fullName
+                        })
+                    });
+
+                    alert(`✅ Commande reçue!\n\nTotal: ${total.toFixed(2)} €\n\nMimi a été notifiée! 💕`);
+
+                    cart = [];
+                    updateCartCount();
+                    updateCartDisplay();
+                    document.getElementById('cartModal').classList.remove('active');
+                })
+                .catch(err => {
+                    console.log('Erreur:', err);
+                    showError('⚠️ Erreur', 'Impossible de vérifier ton compte. Réessaie!');
+                });
+        }
+
+        function showError(title, message) {
+            document.getElementById('errorTitle').textContent = title;
+            document.getElementById('errorMessage').textContent = message;
+            document.getElementById('errorModal').classList.add('active');
+        }
+
+        function closeErrorModal() {
+            document.getElementById('errorModal').classList.remove('active');
+        }
+
+        function setupStars() {
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    window.selectedRating = this.dataset.rating;
+                    stars.forEach(s => s.classList.remove('active'));
+                    for (let i = 0; i < window.selectedRating; i++) {
+                        stars[i].classList.add('active');
+                    }
+                });
+            });
+        }
+
+        function submitComment() {
+            const email = document.getElementById('commentEmail').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+            const rating = window.selectedRating || 0;
+            
+            if (!email) {
+                alert('Écris ton email!');
+                return;
+            }
+            
+            if (!email.includes('@')) {
+                alert('Email invalide! ❌');
+                return;
+            }
+            
+            if (!text) {
+                alert('Écris un commentaire!');
+                return;
+            }
+            
+            if (rating === 0) {
+                alert('Clique sur les étoiles pour évaluer!');
+                return;
+            }
+
+            // Vérifier que le client est enregistré
+            const isRegistered = Object.values(registeredUsers).some(u => u.email === email);
+            
+            if (!isRegistered) {
+                alert('❌ Tu dois d\'abord créer un compte Sign Up!\n\nMimi validera ton compte et tu pourras commenter! 🔒');
+                return;
+            }
+
+            // Sauvegarder dans localStorage
+            let comments = JSON.parse(localStorage.getItem('mimiprixComments')) || [];
+            const commentData = {
+                email: email,
+                text: text,
+                rating: parseInt(rating),
+                date: new Date().toLocaleString('fr-FR'),
+                id: Date.now()
+            };
+            comments.push(commentData);
+            localStorage.setItem('mimiprixComments', JSON.stringify(comments));
+
+            // SAUVEGARDER DANS GOOGLE SHEETS
+            const sheetData = {
+                timestamp: new Date().toLocaleString('fr-FR'),
+                rank: rating,
+                email: email,
+                comment: text
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbw4kAEuJO2sxnMbQhiFVNRjTxTdI39kqWLM5Fo6Y3ooENdeqnRj9wooxaummvEM4ljs/exec', {
+                method: 'POST',
+                body: JSON.stringify(sheetData)
+            }).catch(err => console.log('Commentaire sauvegardé dans le sheet'));
+
+            // ENVOYER À MIMI PAR EMAIL
+            const message = `💬 NOUVEAU COMMENTAIRE MIMIPRIX!\n\nDe: ${email}\nÉvaluation: ${'⭐'.repeat(rating)}\n\nCommentaire:\n"${text}"`;
+            
+            fetch('https://formspree.io/f/xdazzpdd', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    message: message,
+                    email: 'mimilacarotte0@gmail.com',
+                    _subject: '💬 Nouveau Commentaire de ' + email + ' - ' + rating + ' ⭐'
+                })
+            }).catch(err => console.log('Email envoyé'));
+
+            alert('✓ Merci pour ton avis! 💕');
+            document.getElementById('commentEmail').value = '';
+            document.getElementById('commentText').value = '';
+            window.selectedRating = 0;
+            document.querySelectorAll('.star').forEach(s => s.classList.remove('active'));
+            displayComments();
+        }
+
+        function displayComments() {
+            const list = document.getElementById('commentsList');
+            const comments = JSON.parse(localStorage.getItem('mimiprixComments')) || [];
+            
+            if (comments.length === 0) {
+                list.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">Aucun commentaire! 🎉</div>';
+                return;
+            }
+
+            list.innerHTML = '';
+            [...comments].reverse().forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'comment-item';
+                div.innerHTML = `<div class="comment-stars">${'⭐'.repeat(c.rating)}</div><div style="color: #FF6B9D; font-weight: 700; font-size: 0.9rem; margin-bottom: 5px;">📧 ${c.email}</div><div class="comment-text">"${c.text}"</div><div class="comment-date">${c.date}</div>`;
+                list.appendChild(div);
+            });
+        }
+
+        setTimeout(() => {
+            if (document.getElementById('commentsList')) {
+                setupStars();
+                displayComments();
+            }
+        }, 500);
+    </script>
+</body>
+</html>
