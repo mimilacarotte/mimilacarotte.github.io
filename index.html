@@ -960,7 +960,7 @@
                 const card = document.createElement('div');
                 card.className = `product-card ${outOfStockClass}`;
                 card.innerHTML = `
-                    <img src="images/${product.image}" alt="${name}" class="product-image">
+                    <img src="${product.image}" alt="${name}" class="product-image">
                     <div class="product-info">
                         <div class="product-name">${name}</div>
                         <div class="product-price">${product.price.toFixed(2)} €</div>
