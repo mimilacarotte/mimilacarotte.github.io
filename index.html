@@ -1082,7 +1082,6 @@
                         c.email === email || 
                         (c.firstName === firstName && c.lastName === name)
                     );
-  	 	    alert(`📋 DEBUG:\n\n所有Clients数量: ${clients.length}\n\n当前Client:\n${JSON.stringify(clientFromSheet, null, 2)}`);
                     if (!clientFromSheet) {
                         showError('❌ Compte Non Trouvé', `Désolé, tu n'as pas de compte Mimiprix. Tu dois Sign Up et attendre que Mimi valide ton compte pour acheter chez Mimiprix. 😢`);
                         return;
